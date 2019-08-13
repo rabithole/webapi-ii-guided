@@ -1,10 +1,11 @@
 const express = require('express');
 
-const Hubs = require('./hubs/hubs-model.js');
+const HubsRouter = require('./hubs/hubs-router.js');
 
 const server = express();
 
-server.use(express.json());
+server.use(express.json()); // Converts data to json... This is middleware...
+server.use('/api/hubs', HubsRouter);
 
 server.get('/', (req, res) => {
   res.send(`
@@ -12,8 +13,6 @@ server.get('/', (req, res) => {
     <p>Welcome to the Lambda Hubs API</p>
   `);
 });
-
-
 
 // add an endpoint that returns all the messages for a hub
 // add an endpoint for adding new message to a hub

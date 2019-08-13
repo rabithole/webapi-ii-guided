@@ -1,6 +1,8 @@
 const express = require('express');
 
-const router -express.Router();
+const Hubs = require('./hubs-model.js');
+
+const router = express.Router();
 // URI: /api/hubs
 
 // GET /api/hubs
@@ -19,6 +21,7 @@ router.get('/', (req, res) => {
   });
 });
 
+// This is also a GET to /api/hubs/:id
 router.get('/:id', (req, res) => {
   Hubs.findById(req.params.id)
   .then(hub => {
@@ -69,7 +72,7 @@ router.delete('/:id', (req, res) => {
   });
 });
 
-router.put(':id', (req, res) => {
+router.put('/:id', (req, res) => {
   const changes = req.body;
   Hubs.update(req.params.id, changes)
   .then(hub => {
@@ -87,3 +90,5 @@ router.put(':id', (req, res) => {
     });
   });
 });
+
+module.exports = router;
