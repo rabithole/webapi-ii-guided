@@ -7,18 +7,33 @@ const router = express.Router();
 
 // GET /api/hubs
 // File paths are assumed to be the above stated URI. Only / is neccessary in the router file path...
-router.get('/', (req, res) => {
-  Hubs.find(req.query)
-  .then(hubs => {
+// router.get('/', (req, res) => {
+//   Hubs.find(req.query)
+//   .then(hubs => {
+//     res.status(200).json(hubs);
+//   })
+//   .catch(error => {
+//     // log error to database
+//     console.log(error);
+//     res.status(500).json({
+//       message: 'Error retrieving the hubs',
+//     });
+//   });
+// });
+
+// Try Catch
+router.get('/', async (req, res) => {
+  try {
+    // console.log('query', req.query);
+    const hubs = await Hubs.find(req.query);
     res.status(200).json(hubs);
-  })
-  .catch(error => {
+  } catch (error) {
     // log error to database
     console.log(error);
     res.status(500).json({
       message: 'Error retrieving the hubs',
     });
-  });
+  }
 });
 
 // This is also a GET to /api/hubs/:id
