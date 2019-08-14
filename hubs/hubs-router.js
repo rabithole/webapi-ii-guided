@@ -106,4 +106,19 @@ router.put('/:id', (req, res) => {
   });
 });
 
+// add an endpoint that returns all the message for a hub
+// GET /api/hubs/:id/messages
+router.get('/:id/messages', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const messages = await Hubs.findHubMessages(id);
+    res.status(200).json(messages);
+  } catch (error) {
+    // log error to database
+    res.status(500).json({
+      message: 'Error finding hub messages',
+    });
+  }
+});
+
 module.exports = router;
