@@ -121,4 +121,34 @@ router.get('/:id/messages', async (req, res) => {
   }
 });
 
+// add endpoint for adding new message to a hub
+router.post('/:id/messages', async (req, res) => {
+  const messageInfo = {...req.body, hub_id: req.params.id };
+
+  try {
+    const savedMessage = await Hubs.addMessage(messageInfo);
+    res.status(201).json(savedMessage);
+  } catch (error) {
+    // log error to database
+    console.log(error);
+    res.status(500).json({
+      message: 'Error saving hub message',
+    });
+  }
+});
+
 module.exports = router;
+
+router.post('/', (req, res) => {
+  Hubs.add(req.body)
+  .then(hub => {
+    res.status(201).json(hub);
+  })
+  .catch(error => {
+    // log error to database
+    console.log(error);
+    res.status(500).json({
+      message: 'Error adding the hub',
+    });
+  });
+});
