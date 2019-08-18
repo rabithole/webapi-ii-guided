@@ -89,7 +89,7 @@ router.delete('/:id', (req, res) => {
 
 router.put('/:id', (req, res) => {
   const changes = req.body;
-  Hubs.update(req.params.id, changes)
+  Hubs .update(req.params.id, changes)
   .then(hub => {
     if (hub) {
       res.status(200).json(hub);
