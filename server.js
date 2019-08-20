@@ -5,7 +5,7 @@ const HubsRouter = require('./hubs/hubs-router.js');
 const server = express();
 
 server.use(express.json()); // Converts data to json... This is middleware...
-server.use('/api/hubs', HubsRouter);
+server.use('/api/hub', HubsRouter);
 
 server.get('/', (req, res) => {
   res.send(`
